@@ -1,0 +1,30 @@
+title: Products
+description: Endpoints to help you manage the products in your store
+model: product
+endpoints:
+    - endpoint: '/products'
+      methods:
+        -
+            method: 'GET'
+            minimum_access: 'client'
+            parameters:
+              ids:
+                type: Array
+                required: false
+                description: An array of IDs to limit the response to
+              includes:
+                type: String|Array
+                required: false
+                description: The included relations, see model definition for more info
+            examples:
+              php: "Candy::products()->get();"
+            response:
+              data:
+                -
+                  id: "lnrxvznx"
+                  brand: "Jolly Rancher"
+                  name: "Jolly Ranchers Assorted Flavours Hard Candy"
+                  page_title: "The sweetest Candy in the Galaxy"
+                  product_information: "A piece of Candy"
+        -
+          method: 'PUT'
