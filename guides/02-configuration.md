@@ -155,8 +155,8 @@ Expects: `array`
 ],
 ```
 
-<alert-panel level="info">
+<!-- <alert-panel level="info">
     <div slot="title">
         Check out the payments section under guides for more information about these.
     </div>
-</alert-panel>
+</alert-panel> -->
