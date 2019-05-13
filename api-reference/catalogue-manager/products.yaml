@@ -72,3 +72,98 @@ endpoints:
               -
                 id: "1mgd4gwq"
                 name: "Bubblegum Blues"
+    - endpoint: '/products/:id'
+      methods:
+        -
+          method: 'GET'
+          minimum_access: 'client'
+          response_varies: depending on custom attributes
+          parameters:
+            includes:
+              type: String|Array
+              required: false
+              description: The included relations, see model definition for more info
+          examples:
+            php: "$products = Candy::products()->get($id);
+
+            var_dump($products);"
+          response:
+            data:
+              -
+                id: "lnrxvznx"
+                brand: "Jolly Rancher"
+                name: "Jolly Ranchers Assorted Flavours Hard Candy"
+                page_title: "The sweetest Candy in the Galaxy"
+                product_information: "A piece of Candy"
+        -
+          method: 'PUT'
+          minimum_access: 'user'
+          response_varies: depending on custom attributes
+          parameters:
+            family_id:
+              type: String
+              required: false
+              description: The hashed ID of the product family
+            attribute_data:
+              type: Array
+              required: true
+              description: The attribute data to update
+            includes:
+              type: String|Array
+              required: false
+              description: The included relations, see model definition for more info
+          examples:
+            php: "$products = Candy::products()->get([
+              'attribute_data' => [
+                'name' => [
+                  'webstore' => [
+                    'en' => 'Jolly Ranchers',
+                    'fr' => 'Délicieux bonbons Jolly Ranchers'
+                  ]
+                ]
+              ]
+            ]);
+            var_dump($products);"
+          response:
+            data:
+              -
+                id: "lnrxvznx"
+                brand: "Jolly Rancher"
+                name: "Jolly Ranchers Assorted Flavours Hard Candy"
+                page_title: "The sweetest Candy in the Galaxy"
+                product_information: "A piece of Candy"
+    - endpoint: '/products/:id/customer-groups'
+      methods:
+        -
+          method: 'POST'
+          minimum_access: 'user'
+          response_varies: depending on custom attributes
+          parameters:
+            groups:
+              type: Array
+              required: true
+              description: An array of group info
+            groups.*.id:
+              type: String
+              required: true
+              description: This ID of the customer group
+            groups.*.visible:
+              type: Boolean
+              required: true
+              description: Whether the product is visible for this group
+            groups.*.purchasable:
+              type: Boolean
+              required: true
+              description: Whether the product is purchasable for this group
+            includes:
+              type: String|Array
+              required: false
+              description: The included relations, see model definition for more info
+          response:
+            data:
+              -
+                id: "lnrxvznx"
+                brand: "Jolly Rancher"
+                name: "Jolly Ranchers Assorted Flavours Hard Candy"
+                page_title: "The sweetest Candy in the Galaxy"
+                product_information: "A piece of Candy"

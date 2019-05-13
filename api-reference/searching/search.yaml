@@ -1,0 +1,39 @@
+title: Search
+description: ECommerce search powered by ElasticSearch
+model: product
+definitions:
+  - product
+endpoints:
+    - endpoint: '/search'
+      methods:
+        -
+            method: 'GET'
+            minimum_access: 'client'
+            paginated: true
+            parameters:
+              type:
+                type: String
+                required: true
+                description: Search for either `product` or `category`
+              "{attribute}":
+                type: Array|String
+                required: false
+                description: The attribute to filter on
+              category:
+                type: String
+                required: false
+                description: Limit to a specific category
+              keywords:
+                type: String
+                required: true
+                description: The keywords to search
+            examples:
+              php: "examples/search/php/product-search.php"
+            response:
+              data:
+                -
+                  id: "lnrxvznx"
+                  brand: "Jolly Rancher"
+                  name: "Jolly Ranchers Assorted Flavours Hard Candy"
+                  page_title: "The sweetest Candy in the Galaxy"
+                  product_information: "A piece of Candy"
