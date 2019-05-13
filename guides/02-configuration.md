@@ -9,7 +9,7 @@ tocs:
         table_columns: table_columns
         statuses: statuses
         statuses.options: statues.options
-        payments: payments
+    payments: payments
 ---
 
 While we try and keep descriptive comments in the default documentation, below is a more thorough outline of what's available.

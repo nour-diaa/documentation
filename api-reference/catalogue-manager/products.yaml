@@ -3,6 +3,7 @@ description: Endpoints to help you manage the products in your store
 model: product
 definitions:
   - product
+  - product-family
 endpoints:
     - endpoint: '/products'
       methods:
@@ -31,3 +32,43 @@ endpoints:
                   name: "Jolly Ranchers Assorted Flavours Hard Candy"
                   page_title: "The sweetest Candy in the Galaxy"
                   product_information: "A piece of Candy"
+        -
+          method: "POST"
+          minimum_access: 'user'
+          parameters:
+            name:
+              type: Array
+              required: true
+              description: The name of the product
+            stock:
+              type: Number
+              required: true
+              description: The stock level for the product
+            family_id:
+              type: String
+              required: true
+              description: The Hashed ID of the product family
+            price:
+              type: Float|Number
+              required: true
+              description: The price of the product
+            sku:
+              type: String
+              required: true
+              description: The unique SKU for the product
+          examples:
+            php: "$product = Candy::products()->create([
+              'name' => ['en' => 'Bubblegum Blues'],
+              'url' => 'bubblegum-blues',
+              'sku' => 'bubblegum-blues-567',
+              'stock' => 1,
+              'family_id' => '8edoldnr',
+              'price' => 3.97
+            ]);
+
+            var_dump($product);"
+          response:
+            data:
+              -
+                id: "1mgd4gwq"
+                name: "Bubblegum Blues"

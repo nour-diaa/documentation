@@ -1,17 +1,25 @@
-title: Payments
-description: Payment endpoints
+title: Orders
+description: Order management endpoints
 model: order
 definitions:
   - order
   - transaction
 endpoints:
-    - endpoint: '/payments/provider'
+    - endpoint: '/orders/process'
       description: Get information about a payment provider
       methods:
         -
-            method: 'GET'
+            method: 'POST'
             minimum_access: 'client'
-            response_varies: depending on payment provider
+            parameters:
+              order_id:
+                type: String
+                required: true
+                description: The hashed ID of the order
+              payment_token:
+                type: String
+                required: true
+                description: The provider payment token
             examples:
               php: "$info = Candy::payments()->provider();
 
