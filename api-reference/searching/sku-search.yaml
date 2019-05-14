@@ -1,5 +1,5 @@
 title: SKU Search
-description: Search for SKUs based on partial matching
+description: Rapid auto suggestions for partial SKU matching.
 endpoints:
     - endpoint: '/search/sku'
       methods:
