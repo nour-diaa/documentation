@@ -12,7 +12,7 @@ endpoints:
                 required: true
                 description: The full/partial SKU to search on
             examples:
-              php: "examples/search/php/sku-search.php"
+              php: "examples/api/search/sku/php.php"
             response:
               data:
                 -
