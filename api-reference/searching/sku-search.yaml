@@ -1,0 +1,21 @@
+title: SKU Search
+description: Rapid auto suggestions for partial SKU matching.
+endpoints:
+    - endpoint: '/search/sku'
+      methods:
+        -
+            method: 'GET'
+            minimum_access: 'client'
+            parameters:
+              sku:
+                type: String
+                required: true
+                description: The full/partial SKU to search on
+            examples:
+              php: "examples/api/search/sku/php.php"
+            response:
+              data:
+                -
+                  name: "Jolly Rancher"
+                  breadcrumbs: "Sweets | Hard Candy"
+                  sku: "jolly-ranchers"
