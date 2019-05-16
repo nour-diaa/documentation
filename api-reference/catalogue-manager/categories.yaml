@@ -1,0 +1,115 @@
+title: Categories
+description: Management of Categories
+model: category
+definitions:
+  - category
+endpoints:
+    - endpoint: '/categories'
+      methods:
+        -
+            method: 'GET'
+            response_codes: [200]
+            parameters:
+              tree:
+                type: Boolean
+                required: false
+                description: Whether to show categories as a tree
+                default: false
+              depth:
+                type: String|Number
+                required: false
+                description: The maximum node depth to give back
+                default: 1
+              limit:
+                type: String|Number
+                required: false
+                description: The number of categories to return
+            examples:
+              php: "examples/api/categories/categories/get.php"
+            responses:
+              default:
+                data:
+                  id: "wz6d39dj"
+                  sort: "min_price:asc"
+                  products_count: 8
+                  children_count: 6
+                  name: "Some Category"
+                  layout: null
+              tree:
+                data:
+                  id: "wz6d39dj"
+                  sort: "min_price:asc"
+                  products_count: 8
+                  children_count: 6
+                  name: "Some Category"
+                  children:
+                    data:
+                      -
+                        id: "wthsefs877"
+                        sort: "min_price:asc"
+                        products_count: 24
+                        children_count: 0
+                        name: "Some Child Category"
+    - endpoint: '/categories/reorder'
+      description: The endpoint to help organize categories in your store.
+      methods:
+        -
+          method: "POST"
+          response_codes: [200, 500]
+          parameters:
+            node:
+              type: String
+              required: true
+              description: The ID of the target category
+            moved-node:
+              type: String
+              required: true
+              description: The ID of the category that has moved
+            action:
+              type: String
+              required: true
+              description: The action of the movement - before, after, over
+          response:
+            success: true
+    - endpoint: '/categories/:category/products'
+      methods:
+        -
+          method: "PUT"
+          response_codes: [200, 422]
+          parameters:
+            sort_type:
+              type: String
+              required: true
+              description: How to sort products in the category e.g. min_price:asc
+            products:
+              type: Array
+              required: true
+              description: An array of product ID's with their position
+          response:
+            data:
+              id: "wz6d39dj"
+              sort: "min_price:asc"
+              products_count: 8
+              children_count: 6
+              name: "Some Category"
+              layout: null
+    - endpoint: '/categories/:category/layouts'
+      methods:
+        -
+          method: "POST"
+          response_codes: [200, 422]
+          parameters:
+            layout_id:
+              type: String
+              required: true
+              description: The layout ID to associate to the category
+          response:
+            data:
+              id: "wz6d39dj"
+              sort: "min_price:asc"
+              products_count: 8
+              children_count: 6
+              name: "Some Category"
+    - endpoint: '/categories/:category/routes'
+      methods:
+        -
