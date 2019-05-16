@@ -10,6 +10,7 @@ endpoints:
             method: 'GET'
             minimum_access: 'client'
             paginated: false
+            response_codes: [200]
             parameters:
               type:
                 type: String
