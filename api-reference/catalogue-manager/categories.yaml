@@ -50,6 +50,59 @@ endpoints:
                         products_count: 24
                         children_count: 0
                         name: "Some Child Category"
+    - endpoint: '/categories/:category'
+      methods:
+        -
+          method: "GET"
+          response_codes: [200, 404]
+          parameters:
+              includes:
+                type: String|Array
+                required: false
+                description: The included relations, see model definition for more info
+          examples:
+            php: examples/api/categories/categories-category/get.php
+          response:
+            data:
+                  id: "wz6d39dj"
+                  sort: "min_price:asc"
+                  products_count: 8
+                  children_count: 6
+                  name: "Some Category"
+        -
+          method: "PUT"
+          response_codes: [200, 422, 404]
+          parameters:
+            attributes:
+              type: Array
+              required: true
+              description: The attributes to save against the category
+            customer_groups:
+              type: Array
+              required: false
+              description: The customer groups to attach to the category
+            channels:
+              type: Array
+              required: false
+              description: The channels to attach to the category
+            includes:
+              type: String|Array
+              required: false
+              description: The included relations, see model definition for more info
+          examples:
+            php: examples/api/categories/categories-category/put.php
+          response:
+            data:
+                  id: "wz6d39dj"
+                  sort: "min_price:asc"
+                  products_count: 8
+                  children_count: 6
+                  name: "Some Category"
+        -
+          method: "DELETE"
+          response_codes: [204]
+          response: No Response Body
+
     - endpoint: '/categories/reorder'
       description: The endpoint to help organize categories in your store.
       methods:
@@ -113,3 +166,24 @@ endpoints:
     - endpoint: '/categories/:category/routes'
       methods:
         -
+          method: "POST"
+          response_codes: [200, 422]
+          parameters:
+            locale:
+              type: String
+              required: true
+              description: The locale for the route e.g. EN
+            slug:
+              type: String
+              required: true
+              description: The unique slug
+            description:
+              type: String
+              required: false
+              description: An optional description of the slug
+            redirect:
+              type: Boolean
+              required: false
+              description: Whether this route is a redirect
+          response:
+            data: No response body
