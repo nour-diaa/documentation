@@ -6,6 +6,7 @@ endpoints:
         -
             method: 'POST'
             minimum_access: 'client'
+            response_codes: [200, 422]
             parameters:
               parent_id:
                 type: String
