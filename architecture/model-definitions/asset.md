@@ -4,7 +4,7 @@ description: "GetCandy\\Api\\Core\\Assets\\Models\\Asset"
 github: https://github.com/getcandy/candy-api/blob/master/src/Core/Assets/Models/Asset.php
 ---
 
-## Default Attributes
+## Attributes
 
 - `id` - The encoded ID
 - `title` - The title
