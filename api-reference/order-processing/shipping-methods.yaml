@@ -1,0 +1,55 @@
+title: Shipping Methods
+description: Endpoints for dealing with Shipping Methods
+model: shipping-method
+definitions:
+  - shipping-method
+endpoints:
+    - endpoint: '/shipping'
+      methods:
+        -
+            method: 'GET'
+            paginated: false
+            response_codes: [200]
+            parameters:
+              current_page:
+                type: Number|String
+                required: false
+                description: The current page
+              sort:
+                type: String
+                required: false
+                description: The attribute to sort the results by
+              per_page:
+                type: Number|String
+                required: false
+                description: The number of results to show per page
+            examples:
+              php: "examples/api/shipping/shipping/get.php"
+            response:
+              data:
+                -
+                  id: "3898dl02"
+                  type: "regional"
+                  attribute_data:
+                    name:
+                      webstore:
+                        en:
+                          "Standard Delivery"
+                -
+                  id: "pq6j76yz"
+                  type: "collection"
+                  attribute_data:
+                    name:
+                      webstore:
+                        en:
+                          "In-Store Collection"
+              meta:
+                sort: null
+                category_page: false
+                pagination:
+                  data:
+                    total: 4
+                    count: 4
+                    per_page: 30
+                    current_page: 1
+                    total_pages: 1
