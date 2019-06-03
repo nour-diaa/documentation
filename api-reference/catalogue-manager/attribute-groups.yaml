@@ -1,0 +1,72 @@
+title: Attribute Groups
+description: Manage attribute groups
+model: attributeGroup
+definitions:
+  - attribute-group
+endpoints:
+    - endpoint: '/attribute-groups'
+      methods:
+        -
+          method: 'GET'
+          paginated: true
+          response_codes: [200, 404]
+          response:
+            data:
+              -
+                id: "vokq5kmj"
+                name:
+                  en: "General"
+                handle: "general"
+                position: 1
+              -
+                id: "96e7nk8r"
+                name:
+                  en: "Additional Details"
+                handle: "additional_details"
+                position: 2
+        -
+          method: "POST"
+          response_codes: [200, 422]
+          parameters:
+            name:
+              type: String
+              required: true
+              description: The attribute group name
+            handle:
+              type: String
+              required: true
+              description: The unique attribute group handle
+          response:
+            data:
+                id: "vokq5kmj"
+                name:
+                  en: "General"
+                handle: "general"
+                position: 1
+    - endpoint: '/attribute-groups/:id'
+      methods:
+        -
+          method: 'PUT'
+          minimum_access: 'client'
+          paginated: false
+          response_codes: [200, 422, 404]
+          parameters:
+            name:
+              type: String
+              required: true
+              description: The attribute group name
+            handle:
+              type: String
+              required: true
+              description: The unique attribute group handle
+          response:
+            data:
+              id: "vokq5kmj"
+              name:
+                en: "General"
+              handle: "general"
+              position: 1
+        -
+          method: 'DELETE'
+          response_codes: [204]
+          response: No Response Body
