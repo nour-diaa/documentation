@@ -5,8 +5,10 @@ tocs:
     hub_access: hub_access
     discounters: discounters
     orders:
+        reference_callback: reference_callback
         mailers: mailers
         table_columns: table_columns
+        exports: exports
         statuses: statuses
         statuses.options: statues.options
     payments: payments
@@ -50,9 +52,23 @@ Expects: `array`
 ],
 ```
 
-## `orders` <a name="discounters"></a>
+## `orders` <a name="orders"></a>
 
 All configuration below should live within the `orders` array.
+
+### `reference_callback` <a name="reference_callback"></a>
+
+If you want to have your own custom order reference, you can define the logic here.
+
+Expects: `Closure`
+
+**Example**
+
+```php
+'reference_callback' => function ($order) {
+    return "MY-ORDER-REFERENCE-{$order->id}";
+},
+```
 
 ### `mailers` <a name="mailers"></a>
 
@@ -86,6 +102,28 @@ Expects: `array`
     'name', 'reference', 'account_no', 'contact_email', 'account', 'order_total', 'delivery_total', 'date',
 ],
 ```
+
+### `exports` <a name="exports"></a>
+
+Define multiple ways in which orders can be exported from the hub
+
+Expects: `array`
+
+**Example**
+
+```php
+'exports' => [
+    'csv' => [
+        'label' => 'CSV',
+        'format' => 'csv',
+        'view' => 'exports.orders.csv'
+    ],
+],
+```
+
+**What's happening?**
+
+So here you're defining the available ways to export orders, the `view` will be loaded with all the orders from the database or the ones currently selected in the Hub. **The example view won't exist, you need to create that yourself**
 
 ### `statuses` <a name="statuses"></a>
 
