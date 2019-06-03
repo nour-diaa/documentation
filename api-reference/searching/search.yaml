@@ -9,7 +9,8 @@ endpoints:
         -
             method: 'GET'
             minimum_access: 'client'
-            paginated: true
+            paginated: false
+            response_codes: [200]
             parameters:
               type:
                 type: String
@@ -19,21 +20,77 @@ endpoints:
                 type: Array|String
                 required: false
                 description: The attribute to filter on
-              category:
-                type: String
+              categories:
+                type: String|Array
                 required: false
-                description: Limit to a specific category
+                description: Limit to a specific categories
               keywords:
                 type: String
                 required: true
                 description: The keywords to search
+              channel:
+                type: String
+                required: false
+                description: The channel to limit results by
+              current_page:
+                type: Number|String
+                required: false
+                description: The current page
+              sort:
+                type: String
+                required: false
+                description: The attribute to sort the results by
+              per_page:
+                type: Number|String
+                required: false
+                description: The number of results to show per page
+              rank:
+                type: Boolean
+                required: false
+                description: Whether to use the ranking defined in GetCandy config (defaults to true)
             examples:
-              php: "examples/search/php/product-search.php"
+              php: "examples/api/search/search/php.php"
             response:
               data:
                 -
                   id: "lnrxvznx"
-                  brand: "Jolly Rancher"
-                  name: "Jolly Ranchers Assorted Flavours Hard Candy"
-                  page_title: "The sweetest Candy in the Galaxy"
-                  product_information: "A piece of Candy"
+                  attribute_data:
+                    name:
+                      webstore:
+                        en: "Jolly Ranchers Assorted Flavours Hard Candy"
+                        fr: "Bonbons durs aux saveurs variées Jolly Ranchers"
+                  max_price: 10.99
+                  max_price_tax: 0.55
+                  min_price: 5.99
+                  min_price_tax: 0.3
+                  variant_count: 1
+                  first_variant: "{ ... }"
+              meta:
+                sort: null
+                category_page: false
+                pagination:
+                  data:
+                    total: 836
+                    count: 30
+                    per_page: 30
+                    current_page: 1
+                    total_pages: 28
+                aggregation:
+                  data:
+                    max_price:
+                      value: 2912.5
+                      attribute: null
+                    price:
+                      buckets:
+                        -
+                          key: "Under &pound;12.00"
+                          from: 0
+                          to: 149
+                          doc_count: 672
+                        -
+                          key: "&pound;13.00 - &pound;15.00"
+                          from: 130
+                          to: 150
+                          doc_count: 22
+                    categories:
+                      data: "{ ... }"
