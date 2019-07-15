@@ -7,7 +7,7 @@ description: Getting started with the GetCandy API
 
 By default all endpoints (with the exception of OAuth routes) are prefixed with `/api/{version}` so, for example, if you take the products endpoint into consideration the full endpoint will look like:
 
-```
+```bash
 /api/v1/products
 ```
 

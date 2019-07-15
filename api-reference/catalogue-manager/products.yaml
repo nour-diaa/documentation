@@ -1,6 +1,7 @@
 title: Products
 description: Endpoints to help you manage the products in your store
 model: product
+see: catalogue-manager/products
 definitions:
   - product
   - product-family
