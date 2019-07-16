@@ -1,0 +1,67 @@
+title: Routes
+model: route
+definitions:
+  - route
+endpoints:
+    - endpoint: '/routes'
+      methods:
+        -
+          method: 'GET'
+          minimum_access: 'client'
+          paginated: true
+          response:
+            data:
+              -
+                "id": "xl0vq8x9"
+                "default": true
+                "redirect": false
+                "locale": "en"
+                "path": null
+                "slug": "some-slug-for-a-product"
+                "description": null
+                "type": "product"
+                "element": []
+
+    - endpoint: '/routes/:id'
+      methods:
+        -
+          method: 'GET'
+          minimum_access: 'client'
+          response:
+            data:
+              "id": "xl0vq8x9"
+              "default": true
+              "redirect": false
+              "locale": "en"
+              "path": null
+              "slug": "some-slug-for-a-product"
+              "description": null
+              "type": "product"
+              "element": []
+        -
+          method: 'PUT'
+          minimum_access: 'client'
+          parameters:
+            slug:
+              type: String
+              required: false
+              description: A unique slug
+            default:
+              type: Boolean
+              required: false
+              description: Whether this route is the default
+            redirect:
+              type: Boolean
+              required: false
+              description: Whether this route is a redirect
+          response:
+            data:
+              "id": "xl0vq8x9"
+              "default": true
+              "redirect": false
+              "locale": "en"
+              "path": null
+              "slug": "some-slug-for-a-product"
+              "description": null
+              "type": "product"
+              "element": []

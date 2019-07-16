@@ -1,0 +1,15 @@
+title: Settings
+model: setting
+definitions:
+  - setting
+endpoints:
+    - endpoint: '/settings/:handle'
+      methods:
+        -
+            method: 'GET'
+            minimum_access: 'client'
+            response:
+              data:
+                -
+                  name: "Orders"
+                  handle: "orders"

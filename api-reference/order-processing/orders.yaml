@@ -5,32 +5,332 @@ definitions:
   - order
   - transaction
 endpoints:
+    - endpoint: '/orders'
+      description: Manage orders
+      methods:
+        -
+          method: 'GET'
+          paginated: true
+          minimum_access: 'client'
+          response:
+            status: 200
+            response:
+              data:
+                -
+                  id: 8gl60vzypnkw142
+                  "...": "..."
+                -
+                  id: 9hk71wxzqolx253
+                  "...": "..."
+        -
+          method: 'POST'
+          parameters:
+            basket_id:
+              required: true
+              description: The Hashid ID of the basket to convert to an order
+          minimum_access: 'client'
+          response:
+            status: 200
+            response:
+              data:
+                id: 8gl60vzypnkw142
+                display_id: "#ORD-100000"
+                sub_total: 1569
+                type: null
+                delivery_total: 795
+                discount_total: 0
+                tax_total: 470
+                shipping_preference:
+                shipping_method: null
+                order_total: 2834
+                reference: null
+                customer_reference:
+                invoice_reference: null
+                vat_no: null
+                tracking_no: null
+                dispatched_at: null
+                currency: GBP
+                customer_name: null
+                contact_details:
+                  phone: null
+                  email: null
+                billing_details:
+                  phone: null
+                  email: null
+                  firstname: null
+                  lastname: null
+                  address: null
+                  address_two: null
+                  address_three: null
+                  city: null
+                  county: null
+                  state: null
+                  country: null
+                  zip: null
+                shipping_details:
+                  method: null
+                  preference: null
+                  phone: null
+                  email: null
+                  firstname: null
+                  lastname: null
+                  address: null
+                  address_two: null
+                  address_three:
+                  city: null
+                  county: null
+                  state: null
+                  country: null
+                  zip: null
+                status: awaiting-payment
+                created_at: null
+                updated_at: null
+                placed_at: null
+    - endpoint: '/orders/:id'
+      methods:
+        -
+          method: 'GET'
+          minimum_access: 'client'
+          response:
+            status: 200
+            response:
+              data:
+                id: "8gl60vzypnkw142"
+                "..." : "..."
+    - endpoint: '/orders/:id/lines'
+      description: "Manage an orders lines"
+      methods:
+        -
+          method: 'POST'
+          minimum_access: 'client'
+          parameters:
+            quantity:
+              required: true
+            line_total:
+              required: true
+            unit_price:
+              required: true
+            tax_rate:
+              required: true
+              description: The rate of tax to charge i.e. 20 for 20%
+            description:
+              required: true
+          response:
+            status: 200
+            response:
+              data:
+                id: "8gl60vzypnkw142"
+                "..." : "..."
+    - endpoint: '/orders/lines/:id'
+      description: "Add lines to an order"
+      methods:
+        -
+          method: 'DELETE'
+          minimum_access: 'client'
+          response:
+            status: 204
+    - endpoint: '/orders/:id/expire'
+      description: Cause an order to expire
+      methods:
+        -
+          method: 'POST'
+          minimum_access: 'client'
+          response:
+            status: 204
+    - endpoint: '/orders/:id/shipping/address'
+      description: Update an orders shipping address, all fields are required when no address id is provided
+      methods:
+        -
+          method: 'PUT'
+          minimum_access: 'client'
+          description:
+          parameters:
+            firstname:
+              required: true
+            lastname:
+              required: true
+            address_id:
+              description: The hashed ID of an address to use
+              required: false
+            address:
+              required: true
+            city:
+              required: true
+            county:
+              required: true
+            email:
+              required: false
+            state:
+              required: true
+            zip:
+              required: false
+            country:
+              required: true
+          response:
+            status: 200
+            response:
+              data:
+                id: "8gl60vzypnkw142"
+                "..." : "..."
+    - endpoint: '/orders/:id/billing/address'
+      description: "See above for parameters and responses"
+    - endpoint: '/orders/:id/shipping/methods'
+      description: "Get available shipping methods for an order"
+      methods:
+        -
+          method: 'PUT'
+          minimum_access: 'client'
+          response:
+            data:
+              -
+                id: 232Ssef$Ff
+                rate: 2000
+                tax: 500
+                fixed: true
+                min_basket: 400
+                min_basket_tax: 100
+                min_weight: 0
+                weight_unit: 'kg'
+                min_height: 0
+                height_unit: "m"
+                min_width: 0
+                width_unit: 0
+                min_depth: 0
+                depth_unit: 0
+                min_volume: 0
+                volume_unit: 0
+    - endpoint: '/orders/:id/shipping/cost'
+      description: "Set the shipping cost for the order"
+      methods:
+        -
+          method: 'PUT'
+          minimum_access: 'client'
+          parameters:
+            price_id:
+              required: true
+              description: The hashed ID of the price to charge
+          response:
+            status: 200
+            response:
+              data:
+                id: "8gl60vzypnkw142"
+                "..." : "..."
     - endpoint: '/orders/process'
       description: Get information about a payment provider
       methods:
         -
-            method: 'POST'
-            minimum_access: 'client'
-            parameters:
-              order_id:
-                type: String
-                required: true
-                description: The hashed ID of the order
-              payment_token:
-                type: String
-                required: true
-                description: The provider payment token
-            examples:
-              php: "$info = Candy::payments()->provider();
-
-              var_dump($info);"
-
+          method: 'POST'
+          minimum_access: 'client'
+          parameters:
+            order_id:
+              type: String
+              required: true
+              description: The hashed ID of the order
+            payment_token:
+              type: String
+              required: true
+              description: The provider payment token
+          response_codes: [422, 401, 400, 200]
+          responses:
+            billing:
+              label: "Billing information is missing"
+              status: 403
+              message: "The order is missing billing information"
+            notfound:
+              label: "Order not found"
+              status: 404
+              message: "Resource not found"
+            alreadyprocessed:
+              label: "Order has already been processed"
+              status: 422
+              message: "This order has already been processed"
+            threedsecure:
+              label: "ThreeD Secure response from SagePay"
+              status: 200
+              response:
+                threedsecure: true
+                status: 200
+                transactionId: 123456
+                acsUrl: "https://threedsecure.com/acs/redirect/"
+                paRequest: "https://threedsecure.com/pa/url/"
+            default:
+              label: "Successful response from API"
+              status: 200
+              response:
+                data:
+                  id: 8gl60vzypnkw142
+                  display_id: "#ORD-100000"
+                  sub_total: 1569
+                  type: SagePay
+                  delivery_total: 795
+                  discount_total: 0
+                  tax_total: 470
+                  shipping_preference:
+                  shipping_method: Standard Delivery Mon-Fri
+                  order_total: 2834
+                  reference: ORD-200-100000
+                  customer_reference:
+                  invoice_reference: "#INV-ORD-200-100000"
+                  vat_no: null
+                  tracking_no: null
+                  dispatched_at: null
+                  currency: GBP
+                  customer_name: Joe Bridges
+                  contact_details:
+                    phone: 01234 567890
+                    email: joe@joe.com
+                  billing_details:
+                    phone: 01234 567890
+                    email: billing@joe.com
+                    firstname: Joe
+                    lastname: Bridges
+                    address: 123 Some Road
+                    address_two: Somewhere
+                    address_three: null
+                    city: St Albans
+                    county: Hertfordshire
+                    state: null
+                    country: United Kingdom
+                    zip: ST56 56T
+                  shipping_details:
+                    method: Standard Delivery Mon-Fri
+                    preference: null
+                    phone: 012345 67890
+                    email: shipping@joe.com
+                    firstname: Joe
+                    lastname: Bridges
+                    address: 456 Another Road
+                    address_two: Somewhere
+                    address_three:
+                    city: Some City
+                    county: Some County
+                    state: null
+                    country: United Kingdom
+                    zip: SC89 89TH
+                  status: in-process
+                  created_at:
+                    date: '2019-07-13 22:10:41.000000'
+                    timezone_type: 3
+                    timezone: UTC
+                  updated_at:
+                    date: '2019-07-15 09:18:10.000000'
+                    timezone_type: 3
+                    timezone: UTC
+                  placed_at:
+                    date: '2019-07-14 18:35:27.000000'
+                    timezone_type: 3
+                    timezone: UTC
+                  notes:
+                  meta: []
+    - endpoint: '/orders/:id/invoice'
+      description: "Get an invoice for an order"
+      methods:
+        -
+          method: 'GET'
+          minimum_access: 'client'
+          response:
+            status: 200
             response:
               data:
-                -
-                  name: "SagePay"
-                  client_token: "12345-6789-10111213-ABCDEFGH"
-                  exires_at:
-                    date: "2019-05-09 16:49:50.260000"
-                    timezone_type: 1,
-                    timezone: "+01:00"
+                encoding: 'base64'
+                contents: "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"
