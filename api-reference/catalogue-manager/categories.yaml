@@ -28,28 +28,33 @@ endpoints:
               php: "examples/api/categories/categories/get.php"
             responses:
               default:
-                data:
-                  id: "wz6d39dj"
-                  sort: "min_price:asc"
-                  products_count: 8
-                  children_count: 6
-                  name: "Some Category"
-                  layout: null
+                label: "Paginated response"
+                paginated: true
+                response:
+                  data:
+                    id: "wz6d39dj"
+                    sort: "min_price:asc"
+                    products_count: 8
+                    children_count: 6
+                    name: "Some Category"
+                    layout: null
               tree:
-                data:
-                  id: "wz6d39dj"
-                  sort: "min_price:asc"
-                  products_count: 8
-                  children_count: 6
-                  name: "Some Category"
-                  children:
-                    data:
-                      -
-                        id: "wthsefs877"
-                        sort: "min_price:asc"
-                        products_count: 24
-                        children_count: 0
-                        name: "Some Child Category"
+                label: "Tree response"
+                response:
+                  data:
+                    id: "wz6d39dj"
+                    sort: "min_price:asc"
+                    products_count: 8
+                    children_count: 6
+                    name: "Some Category"
+                    children:
+                      data:
+                        -
+                          id: "wthsefs877"
+                          sort: "min_price:asc"
+                          products_count: 24
+                          children_count: 0
+                          name: "Some Child Category"
     - endpoint: '/categories/:category'
       methods:
         -
@@ -185,5 +190,6 @@ endpoints:
               type: Boolean
               required: false
               description: Whether this route is a redirect
-          response:
-            data: No response body
+          responses:
+            default:
+              status: 204
