@@ -6,26 +6,22 @@ tocs:
     "Hub Installation": hub_install
 ---
 
-### Requirements
+### Which version to use <a name="api_install"></a>
 
-- Laravel 5.7
-- Elasticsearch 6.*
-
-### Install via composer
-
-For a new project, we need to pull in the correct version of Laravel
-
+**Laravel 5.8**
 ```bash
-$ composer create-project laravel/laravel="5.7.*" my-webstore
+composer require getcandy/candy-api
 ```
 
-## API Installation <a name="api_install"></a>
-
-Once we're in the project root, install via composer.
-
+**Laravel 5.7**
 ```bash
-$ composer require getcandy/candy-api
+composer require getcandy/candy-api "0.2.*"
 ```
+
+<alert-panel level="warning" title="Hi">
+  <div slot="title">0.2.* will only work with Elasticsearch 6.*</div>
+</alert-panel>
+
 
 Once done, publish the config.
 ```bash
