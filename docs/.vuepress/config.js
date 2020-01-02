@@ -54,10 +54,10 @@ module.exports = {
 
 
     // Assumes GitHub. Can also be a full GitLab url.
-    repo: 'getcandy/documentation',
+    //repo: 'getcandy/documentation',
     // Customising the header label
     // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
-    repoLabel: 'Contribute!',
+    //repoLabel: 'Contribute!',
 
     // Optional options for generating "Edit this page" link
 
