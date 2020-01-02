@@ -16,7 +16,15 @@ module.exports = {
       { text: 'API', link: '/api/' },
       { text: 'Hub', link: '/hub/' },
       { text: 'FAQ', link: '/faq/' },
-      { text: 'Website', link: 'https://getcandy.io/' }
+      {
+        text: 'Resources',
+        ariaLabel: 'Resources Menu',
+        items: [
+          { text: 'Website', link: 'https://getcandy.io' },
+          { text: 'GitHub', link: 'https://github.com/getcandy' },
+          { text: 'Medium', link: 'https://medium.com/getcandy' }
+        ]
+      }
     ],
     sidebar: {
       '/api/': [
